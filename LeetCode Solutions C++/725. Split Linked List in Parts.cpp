@@ -20,7 +20,7 @@ class Solution {
     }
     
 public:
-//time: O(n), space: O(1)
+//time: O(n+k), space: O(1)
     vector<ListNode*> splitListToParts(ListNode* root, int k) {
         vector<ListNode*> ans(k);
         int n = lengthLL(root);
