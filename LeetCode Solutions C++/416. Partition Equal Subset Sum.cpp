@@ -1,7 +1,7 @@
 class Solution {
 public:
     
-    /*************Approach-3, DP =>Accepted***************/ 
+    /*************Approach-4, DP =>Accepted***************/ 
     //time: O(n*sum)
     bool helperDP(vector<int>&nums, int sumOfSubset){
         vector<bool>dp(sumOfSubset+1,false); 
