@@ -4,6 +4,7 @@ public:
         if(root==NULL) return true;
         return isSameTree(root->left,root->right);
     }
+    
     bool isSameTree(TreeNode* root1,TreeNode *root2) {
     
         if(root1==NULL && root2==NULL) return true;
