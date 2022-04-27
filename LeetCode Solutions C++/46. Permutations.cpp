@@ -1,6 +1,36 @@
 class Solution {
 public:
     
+     /*************************/
+    //time: O(n! * n), space: O(n + n)
+    void permute_rec(vector<int> &nums, vector<vector<int>> &ans, vector<int> &temp, int *freq){
+        if(temp.size() == nums.size()){
+            ans.push_back(temp);
+            return;
+        }
+        
+        for(int i = 0; i< nums.size(); i++){
+            if(freq[i] == 0){ //use it
+                temp.push_back(nums[i]);
+                freq[i] = 1; //used
+                permute_rec(nums, ans, temp, freq);
+                freq[i] = 0; //mark unused
+                temp.pop_back();
+            }
+        }
+    }
+    
+    vector<vector<int>> permute_naive(vector<int>& nums) {
+        vector<vector<int>> ans;
+        vector<int> temp;
+        
+        int *freq =new int[nums.size() + 1]();
+        permute_rec(nums, ans, temp, freq);
+        
+        return ans;
+    }
+    /************************/
+    
     /***************************/
     //time: O(n! * n), space: 0(n)
     vector<vector<int>> permute_(vector<int>& nums) {
