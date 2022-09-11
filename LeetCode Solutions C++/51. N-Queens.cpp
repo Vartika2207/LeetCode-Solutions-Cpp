@@ -1,3 +1,4 @@
+//time: O(n!); space: O(n*n)
 class Solution {
     vector<vector<string>> result;
     bool is_valid(int n, vector<string>& grid, int& row, int col){
