@@ -1,6 +1,7 @@
 class Solution {
     /************Took hint help************/
-    //time: 
+    //time: O(n*n*d) ==> TLE
+    //time Complexity: for *max_ele..   is O(n),  for loop is O(n) and solve is running O(d-1) ~ O(d)
     int solve(vector<int>& jd, int d, int start){
         int n = jd.size();
         if(n < d)
