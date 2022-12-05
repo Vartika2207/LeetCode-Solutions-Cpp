@@ -9,7 +9,8 @@
  * };
  */
 class Solution {
-    //time: O(3n)
+    /**********Reverse half linkedlist**************/
+    //time: O(3n), space: O(1)
     ListNode *reverseLL(ListNode* head){
         ListNode *prev = NULL, *curr = head;
         while(curr){
@@ -21,8 +22,7 @@ class Solution {
         return prev;
     }
     
-    
-    int pairSum_naive(ListNode* head){
+    int pairSum_reverse(ListNode* head){
         ListNode *slow = head, *fast = head;
         while(fast and fast->next){
             if(!fast->next->next)
@@ -43,10 +43,35 @@ class Solution {
         }
         return max(maxTwinSum, 0); 
     }
+    /*************************/
     
+   /*************************/
+    /*************Using stack************/
+    //time: O(n), space: o(n/2)
+    int pairSum_stack(ListNode* head){
+        ListNode *slow = head, *fast = head;
+        stack<ListNode*> st;
+        
+        while(fast and fast->next){
+            st.push(slow);
+            fast = fast->next->next;
+            slow = slow->next;
+        }
+        
+        int maxTwinSum = 0;
+        while(!st.empty() and slow){
+            int sum = st.top()->val + slow->val;
+            maxTwinSum = max(maxTwinSum, sum);
+            st.pop();
+            slow = slow->next;
+        }
+        return maxTwinSum; 
+    }
+    
+    /************************/
     
 public:
     int pairSum(ListNode* head) {
-        return pairSum_naive(head);
+        return pairSum_stack(head);
     }
 };
