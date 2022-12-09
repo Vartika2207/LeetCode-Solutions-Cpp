@@ -11,16 +11,17 @@
  */
 class Solution {
 public:
-  //time: O(total nodes), space: O(height)
+    //time: O(less than total nodes) i.e bcz we are moving on nodes in range[low,high], space: O(height)
     int rangeSumBST(TreeNode* root, int low, int high) {
          if(root == NULL) return 0;
         
         int sum = 0;
         if(root->val >= low && root->val <= high)
             sum += root->val;
-        
-        sum += rangeSumBST(root->left, low, high); //travel on left child
-        sum += rangeSumBST(root->right, low, high); //travel on right child
+        if(root->val >= low)
+          sum += rangeSumBST(root->left, low, high); //travel on left child
+        if(root->val <= high)
+          sum += rangeSumBST(root->right, low, high); //travel on right child
         return sum;
    }
 };
