@@ -25,6 +25,7 @@ class Solution {
     }
     
     // using heap sort
+    // time: O(nlogn)
     vector<int> topKFrequent_heapSort(vector<int>& nums, int k) {
         priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq; //min heap
         
