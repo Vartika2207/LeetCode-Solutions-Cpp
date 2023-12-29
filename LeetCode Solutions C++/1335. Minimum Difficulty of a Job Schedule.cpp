@@ -1,7 +1,7 @@
 class Solution {
     /***********Took hint help***************/
      //optimized
-    //time: O(nd)
+    //time: O(n*n*d)
     int dp[301][11]; //bcz start and d are changing
     int solve_memo(vector<int>& jd, int d, int start, int n){
         
