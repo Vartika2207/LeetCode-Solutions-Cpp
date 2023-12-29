@@ -1,0 +1,67 @@
+class Solution {
+    // approach 1: lb => time:O(nlogn).
+    /*
+    std::lower_bound:
+It performs a binary search on a sorted range to find the position of the first element that is not less than a specified value.
+O(logn)
+std::upper_bound:
+It performs a binary search on a sorted range to find the position of the first element that is greater than a specified value.
+O(logn)*/
+    vector<int> findRightIntervalNaive(vector<vector<int>>& intervals) {
+        int n = intervals.size();
+        vector<int> rightIntervals(n);
+
+        map<int,int> mp; // key is idx, value is interval[0]
+        for(int i=0; i<n; i++) {
+            mp.insert({intervals[i][0], i});
+        }
+
+        for(int i=0; i<n; i++) {
+            int endi = intervals[i][1];
+            auto startj = mp.lower_bound(endi);
+            rightIntervals[i] = startj != end(mp) ? mp.lower_bound(endi)->second : -1;
+        }
+        return rightIntervals;
+    }
+
+// approach 2: binary search => time:
+    int binarySearch(vector<pair<int, int>> inv, int endi, int n) {
+        //this function will give startj for endi
+        int start = 0, end = n-1;
+        int ans = -1;
+        while(start <= end) {
+            int mid = (start+end)/2;
+            if(inv[mid].first >= endi) {
+                ans= inv[mid].second; 
+                end = mid-1; //if this is skipped then we'lll not get minimized startj
+            }
+            else if(inv[mid].first < endi)
+                start = mid+1;
+        }
+        return ans;
+    }
+
+    vector<int> findRightIntervalBS(vector<vector<int>>& intervals) {
+        int n = intervals.size();
+        vector<pair<int, int>> inv;
+
+        for(int i=0; i<n; i++) {
+            inv.push_back({intervals[i][0], i});
+        }
+
+        sort(begin(inv), end(inv));
+        vector<int>rightIntervals(n, -1);
+
+        for(int i=0; i<n; i++) {
+            int endi = intervals[i][1];
+            int idx = binarySearch(inv, endi, n);
+            rightIntervals[i] = idx;
+        }
+        return rightIntervals;
+    } 
+
+public:
+    vector<int> findRightInterval(vector<vector<int>>& intervals) {
+        return findRightIntervalBS(intervals);
+    }
+};
