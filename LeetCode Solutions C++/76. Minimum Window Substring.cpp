@@ -1,5 +1,46 @@
 class Solution {
 public:
+//  time: O(s + t), O(n)
+    string minWindow(string s, string t) {
+        
+        int l = 0, r = 0;
+        unordered_map<char, int> windowFreq, tFreq;
+        for(auto i: t)
+            tFreq[i]++;
+        int reqChar = tFreq.size();
+        string minStr; int minStrLen = INT_MAX;
+        int minStart = 0;
+        while(r < s.size()) {
+            char curChar = s[r];
+            windowFreq[curChar]++;
+            if(tFreq.count(curChar) != 0 and windowFreq[curChar] == tFreq[curChar])
+                reqChar--;
+            while(reqChar == 0) {
+                // capturing string in the window
+                if( r-l+1 < minStrLen) {
+                    minStrLen = r - l + 1;
+                    minStart = l;
+                    // minStr = s.substr(l, minStrLen);
+                } 
+                // reducing window size
+                char leftChar = s[l];
+                windowFreq[leftChar]--;
+                l++;
+                if(tFreq.count(leftChar) != 0 and windowFreq[leftChar] < tFreq[leftChar])
+                    reqChar++;
+            }
+            r++;
+        }
+        return minStrLen != INT_MAX ? s.substr(minStart, minStrLen) : "";
+    }
+};
+
+
+
+
+///////////////////////////////////
+class Solution {
+public:
     string minWindow(string s, string t) {
         int s_len = s.size();  int t_len = t.size();
         if(s_len < t_len)
